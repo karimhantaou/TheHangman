@@ -20,7 +20,7 @@ def getRandomWord():
 #Test if each letter have been found
 def isFound(word, found_letter):
     for char in word:
-        if char.lower() not in found_letter.lower():
+        if char not in found_letter:
             #Return false if one letter isn't
             return False
     #Return true if none is missing
@@ -28,17 +28,16 @@ def isFound(word, found_letter):
 
 #Test if a given letter is in the word to find, True if yes false if not or already found
 def isIn(word, found_letter, letter):
-    if letter.lower() in word.lower() and letter.lower() not in found_letter :
-        return True
-    else:
-        return False
+    return letter in word and letter not in found_letter
+    
+    
 
 #Print the found letters
 def showFoundLetters(word, found_letter):
     result = ""
     for char in word :
         #Print the char if is found
-        if char.lower() in found_letter.lower():
+        if char in found_letter:
             result += char + " "
         #Print _ if not
         else:
@@ -100,7 +99,7 @@ def showScore():
     i = 1
     for score in scoreBoard:
         print(i,".",score, "words")
-        i+=1
+        i += 1
 
 def insertScore(username, score):
     with open("score.txt", "a") as f:
@@ -121,7 +120,7 @@ def game(mode, found_words):
     if not mode : r = input("Get a random word ? (yes/no) : ")
     else: r = "y"
 
-    word = wordChoice(r)
+    word = wordChoice(r).lower()
     
     while True:
         os.system("cls")
@@ -136,7 +135,7 @@ def game(mode, found_words):
 
         print("Already used letters : ", used_letters)
 
-        l = input("Give a letter : ")
+        l = input("Give a letter : ").lower()
 
         if l not in used_letters:
             used_letters += l
